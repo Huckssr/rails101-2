@@ -1,14 +1,14 @@
 <div class="col-md-12">
   <div class="group">
-    <%= link_to("New group", new_group_path, class: "btn btn-primary pull-right") %>
+    <%= link_to("新建讨论版", new_group_path, class: "btn btn-primary pull-right") %>
   </div>
   <table class="table table-hover">
     <thead>
       <tr>
         <td>#</td>
-        <td>Title</td>
-        <td>Description</td>
-        <td>Creator</td>
+        <td>标题</td>
+        <td>内容</td>
+        <td>用户</td>
       </tr>
     </thead>
     <tbody>
@@ -19,9 +19,11 @@
           <td><%= group.description %></td>
           <td><%= group.user.email %></td>
           <td>
-              <%= link_to("Edit", edit_group_path(group), class: "btn btn-sm btn-default")%>
-              <%= link_to("Delete", group_path(group),    class: "btn btn-sm btn-default",
+            <% if current_user && current_user == group.user %>
+              <%= link_to("编辑", edit_group_path(group), class: "btn btn-sm btn-default")%>
+              <%= link_to("删除", group_path(group),    class: "btn btn-sm btn-default",
                           method: :delete, data: { confirm: "Are you sure?" } )%>
+            <% end %>
           </td>
         </tr>
       <% end %>
